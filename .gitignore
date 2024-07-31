@@ -1,1 +1,3 @@
 data_in_json/*.json
+
+__pycache__/
