@@ -1,3 +1,5 @@
-data_in_json/*.json
+
 
 __pycache__/
+
+passwords.db
