@@ -3,10 +3,10 @@ from random import choices
 
 
 def settingsPasswords():
-    #Добавить проверки
+    # Добавить проверки
     print("Введите количество необходимых паролей")
     count_of_pswrds = int(input())
-    if(count_of_pswrds > 52):
+    if count_of_pswrds > 52:
         count_of_pswrds = 52
     print("Введите длину пароля")
     length_of_pswrds = int(input())
@@ -27,7 +27,7 @@ def createPSWRD():
     passwords = genegatePSWRD(count, length)
     while flag:
         print("Выберите пароль, для повторной генерации пароля нажмите 0(ноль)")
-        for index, item in enumerate(passwords, start = 1):
+        for index, item in enumerate(passwords, start=1):
             print(f"{index}. {item}")
         choice = int(input())
         if (choice < 0) or (choice > len(passwords)):
@@ -39,3 +39,29 @@ def createPSWRD():
             continue
         else:
             return passwords[choice - 1]
+
+
+def savePSWRD():
+    choice = ""
+    while True:
+        print("Хотите сохранить пароль (Y/N)?")
+        choice_1 = input()
+        if choice_1 == "Y":
+            return 47
+        elif choice_1 == "N":
+            return False
+        else:
+            print("Введите Y / N")
+            continue
+
+
+def collctSOC():
+    print("Введите название сети для которой будет создан пароль")
+    society = input()
+    return society
+
+
+def collctLOGIN():
+    print("Введите логин")
+    login = input()
+    return login
