@@ -1,5 +1,5 @@
 import sqlite3
-from create_pswrd import collctSOC, collctLOGIN
+from create_pswrd import collctSOC, collctLOGIN, createPSWRD, newPSWRD
 
 table_name = "passwodrs"
 db_name = "../passwords.db"
@@ -64,7 +64,6 @@ def findPSWRD(connection, society):
 def changePSWRD(connection):
     cursor = connection.cursor()
 
-    print("Введите название сети и логин, в которой вы хотите изменить пароль")
     soc = ""
     login = ""
     new_pswrd = ""
@@ -76,9 +75,11 @@ def changePSWRD(connection):
             SELECT id FROM {table_name} WHERE (society, login) IN VALUES(?,?)
         """,
             soc,
-            login,
+            login
         )
         result = cursor.fetchone()
+
+        new_pswrd = newPSWRD()
 
         if result:
             cursor.execute(
@@ -86,8 +87,26 @@ def changePSWRD(connection):
                 UPDATE {table_name} SET password = ? WHERE id = ?
             """,
                 new_pswrd,
-                result,
+                result
             )
+            break
         else:
-            print()
-    # connection.commit()
+            print("Пароль не найден")
+            choice = input()
+            if choice == "Y" or choice == "y":
+                continue
+            else:
+                break
+
+    connection.commit()
+
+
+def check(connection):
+    cursor = connection.cursor()
+    cursor.execute(
+        f"""
+        SELECT * FROM {table_name}        
+    """
+    )
+    result = cursor.fetchall()
+    print(result)

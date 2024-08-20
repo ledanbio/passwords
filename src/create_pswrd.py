@@ -42,13 +42,12 @@ def createPSWRD():
 
 
 def savePSWRD():
-    choice = ""
     while True:
         print("Хотите сохранить пароль (Y/N)?")
         choice_1 = input()
-        if choice_1 == "Y":
-            return 47
-        elif choice_1 == "N":
+        if choice_1 == "Y" or choice_1 == "y":
+            return True
+        elif choice_1 == "N" or choice_1 == "n":
             return False
         else:
             print("Введите Y / N")
@@ -65,3 +64,19 @@ def collctLOGIN():
     print("Введите логин")
     login = input()
     return login
+
+def newPSWRD():
+    new_pswrd = ''
+    while True:
+        print("Как бы вы хотели ввести новый пароль?\n1) Генерация пароля\n2) Ввод пароля с клавиатуры")
+        choice = int(input())
+        if choice == 1:
+            new_pswrd = createPSWRD()
+            break
+        elif choice == 2:
+            new_pswrd = input()
+            break
+        else:
+            print("Введите 1 или 2")
+            continue
+    return new_pswrd

@@ -1,6 +1,6 @@
 from blanks import MENU, language
 from create_pswrd import createPSWRD, savePSWRD, collctSOC, collctLOGIN
-from dbQueries import addPSWRD, createDB, changePSWRD
+from dbQueries import addPSWRD, createDB, changePSWRD, check
 connection = createDB()
 
 control = True
@@ -15,9 +15,10 @@ while control:
             addPSWRD(connection, soc, login, password)  # хэширование пароля
 
     elif choice == 2:
-        changePSWRD()
+        changePSWRD(connection)
     elif choice == 3:
-
+        check(connection)
+    elif choice == 4:
         break
     else:
         print("Введите числа от 1 до ?????")
