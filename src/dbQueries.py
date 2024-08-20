@@ -42,8 +42,7 @@ def addPSWRD(connection, society, login, hash_password):
     cursor.execute(
         f"""
         INSERT INTO {table_name} (society, login, hash_password) VALUES (?, ?, ?)
-    """,
-        (society, login, hash_password),
+    """, (society, login, hash_password)
     )
     connection.commit()
 
@@ -63,7 +62,6 @@ def findPSWRD(connection, society):
 # asdasd
 def changePSWRD(connection):
     cursor = connection.cursor()
-
     soc = ""
     login = ""
     new_pswrd = ""
@@ -71,24 +69,17 @@ def changePSWRD(connection):
         soc = collctSOC()
         login = collctLOGIN()
         cursor.execute(
-            f"""
-            SELECT id FROM {table_name} WHERE (society, login) IN VALUES(?,?)
-        """,
-            soc,
-            login
-        )
+            f'''
+            SELECT id FROM {table_name} WHERE society = ? AND login = ?
+        ''', (soc,) + (login,))
         result = cursor.fetchone()
-
         new_pswrd = newPSWRD()
 
         if result:
             cursor.execute(
                 f"""
-                UPDATE {table_name} SET password = ? WHERE id = ?
-            """,
-                new_pswrd,
-                result
-            )
+                UPDATE {table_name} SET hash_password = ? WHERE id = ?
+            """, (new_pswrd, result[0]))
             break
         else:
             print("Пароль не найден")
